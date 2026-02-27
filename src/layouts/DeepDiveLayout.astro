@@ -1,0 +1,289 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+const { frontmatter } = Astro.props;
+---
+
+<BaseLayout title={`${frontmatter.title} - El Pulso`}>
+    <!-- Sticky Progress Bar -->
+    <div class="fixed top-0 left-0 h-full w-1 bg-[#333] z-50">
+        <div
+            class="h-[35%] w-full bg-primary shadow-[0_0_10px_rgba(183,42,26,0.6)]"
+        >
+        </div>
+    </div>
+
+    <!-- Navigation Overlay (Hidden by default, implied interaction) -->
+    <nav
+        class="fixed top-0 w-full z-40 px-6 py-4 flex justify-between items-center mix-blend-difference text-white"
+    >
+        <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-2xl">graphic_eq</span>
+            <span class="font-bold tracking-tighter text-xl">EL PULSO</span>
+        </div>
+        <button
+            class="group flex items-center gap-2 text-sm font-bold tracking-widest hover:text-primary transition-colors"
+        >
+            MENU
+            <span
+                class="material-symbols-outlined text-lg group-hover:rotate-90 transition-transform"
+                >menu</span
+            >
+        </button>
+    </nav>
+
+    <main
+        class="relative bg-background-light dark:bg-background-dark text-slate-900 dark:text-surface font-display antialiased overflow-x-hidden"
+    >
+        <!-- Hero Section -->
+        <header
+            class="relative w-full h-screen min-h-[800px] flex flex-col justify-center items-center overflow-hidden"
+        >
+            <!-- Background Image with Duotone Effect -->
+            <div class="absolute inset-0 z-0">
+                <div
+                    class="absolute inset-0 bg-primary mix-blend-multiply z-10 opacity-80"
+                >
+                </div>
+                <div class="absolute inset-0 bg-black/40 z-20"></div>
+                <div
+                    class="w-full h-full bg-cover bg-center grayscale contrast-125"
+                    style={`background-image: url('${frontmatter.heroImage}');`}
+                >
+                </div>
+            </div>
+
+            <!-- Hero Content -->
+            <div class="relative z-30 text-center px-4 max-w-7xl mx-auto mt-20">
+                <div
+                    class="mb-6 flex justify-center items-center gap-4 text-xs font-bold tracking-[0.2em] text-surface/80 uppercase"
+                >
+                    <span>{frontmatter.category}</span>
+                    <span class="w-1 h-1 bg-primary rounded-full"></span>
+                    <span>{frontmatter.readTime}</span>
+                    <span class="w-1 h-1 bg-primary rounded-full"></span>
+                    <span>By {frontmatter.author}</span>
+                </div>
+                <h1
+                    class="text-[clamp(4rem,12vw,10rem)] leading-[0.85] font-bold text-surface break-words tracking-tighter mix-blend-overlay"
+                    set:html={frontmatter.title}
+                >
+                </h1>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div
+                class="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 animate-bounce"
+            >
+                <span class="material-symbols-outlined text-4xl text-surface"
+                    >arrow_downward</span
+                >
+            </div>
+        </header>
+
+        <!-- Article Container -->
+        <article
+            class="relative w-full max-w-[1440px] mx-auto pt-24 pb-32 grid grid-cols-1 lg:grid-cols-12 gap-8 px-6 lg:px-12"
+        >
+            <!-- Left Marginalia (Desktop Only) -->
+            <aside class="hidden lg:block lg:col-span-2 relative h-full">
+                <div
+                    class="sticky top-32 flex flex-col gap-12 text-xs font-bold text-gray-500 uppercase tracking-widest text-right border-r border-gray-800 pr-6"
+                >
+                    <div>
+                        <span class="block text-primary mb-1">Date</span>
+                        {frontmatter.date}
+                    </div>
+                    {
+                        frontmatter.location && (
+                            <div>
+                                <span class="block text-primary mb-1">
+                                    Location
+                                </span>
+                                {frontmatter.location}
+                            </div>
+                        )
+                    }
+                    {
+                        frontmatter.musicKey && (
+                            <div>
+                                <span class="block text-primary mb-1">Key</span>
+                                {frontmatter.musicKey}
+                            </div>
+                        )
+                    }
+
+                    <!-- Decorative Line -->
+                    <div
+                        class="h-32 w-[1px] bg-gradient-to-b from-primary to-transparent self-end"
+                    >
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content Column -->
+            <div class="col-span-1 lg:col-span-8 relative">
+                <!-- Lead Paragraph -->
+                {
+                    frontmatter.description && (
+                        <p class="text-2xl md:text-3xl font-light leading-snug text-surface mb-16 max-w-3xl mx-auto border-l-2 border-primary pl-6 py-2">
+                            {frontmatter.description}
+                        </p>
+                    )
+                }
+
+                <!-- Body Text -->
+                <div
+                    class="prose prose-xl prose-invert max-w-2xl mx-auto font-body font-light text-gray-300 leading-relaxed"
+                >
+                    <slot />
+                </div>
+
+                <!-- Footer / Author Block -->
+                <footer
+                    class="mt-24 border-t border-gray-800 pt-12 max-w-3xl mx-auto"
+                >
+                    <div
+                        class="bg-[#0a0a0a] border border-gray-800 p-8 md:p-10 flex flex-col md:flex-row gap-8 items-start md:items-center relative overflow-hidden group"
+                    >
+                        <!-- Hover Effect Background -->
+                        <div
+                            class="absolute inset-0 bg-primary/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500"
+                        >
+                        </div>
+
+                        {
+                            frontmatter.authorImage && (
+                                <img
+                                    alt={`Portrait of ${frontmatter.author}`}
+                                    class="w-24 h-24 object-cover grayscale contrast-125 border border-gray-700 relative z-10"
+                                    src={frontmatter.authorImage}
+                                />
+                            )
+                        }
+
+                        <div class="flex-1 relative z-10">
+                            <h3
+                                class="text-xl font-bold font-display text-surface mb-2 uppercase"
+                            >
+                                {frontmatter.author}
+                            </h3>
+                            {
+                                frontmatter.authorRole && (
+                                    <p class="text-gray-400 font-body font-light text-sm mb-4 leading-relaxed">
+                                        {frontmatter.authorRole}
+                                    </p>
+                                )
+                            }
+
+                            {
+                                frontmatter.tags && frontmatter.tags.length > 0 && (
+                                    <div class="flex flex-wrap gap-2">
+                                        {frontmatter.tags.map((tag) => (
+                                            <button class="px-4 py-1.5 rounded-full border border-accent text-accent text-xs font-bold tracking-wider hover:bg-accent hover:text-black transition-colors uppercase">
+                                                {tag}
+                                            </button>
+                                        ))}
+                                    </div>
+                                )
+                            }
+                        </div>
+                    </div>
+                </footer>
+            </div>
+
+            <!-- Right Marginalia (Notes & Visuals) -->
+            <aside class="hidden lg:block lg:col-span-2 relative h-full">
+                <!-- Floating Note 1 -->
+                <div class="absolute top-[20%] right-0 w-full max-w-[200px]">
+                    <div
+                        class="text-accent text-[10px] font-bold uppercase tracking-widest mb-2 flex items-center gap-2"
+                    >
+                        <span class="material-symbols-outlined text-sm"
+                            >info</span
+                        >
+                        Sidebar Note
+                    </div>
+                    <p
+                        class="text-gray-400 text-xs leading-5 border-l border-accent pl-3"
+                    >
+                        The TR-808 drum machine was initially a commercial
+                        failure in 1980 because it didn't sound like "real"
+                        drums.
+                    </p>
+                </div>
+
+                <!-- Floating Note 2 -->
+                <div class="absolute top-[60%] right-0 w-full max-w-[200px]">
+                    <img
+                        alt="Detail of sheet music notes"
+                        class="w-full h-32 object-cover grayscale contrast-150 mb-3 opacity-60 hover:opacity-100 transition-opacity"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZQHQPqa4Z6OraAUJzHfQ2xujEt95i4EyLb97W2ZDQGxCawRiSZImJ8u6Oh0hgwsXeI8fDoqvS9bLIP60qrRzmiZCJptJgCC5Iic5pQxkFCGsJ09M8-VShER2s0EL3ajkEgQrAuDGq0Qi_jeGe5IBdduXS3VdDbkHXoMWN1TzHvDNGFY1s_gZSQC6eMJJFQCuITipCtK5VZi56qJh2NnFCcYVkhZHq4O8fUFqjpW1ehIXXJ0DDnA2ZecQyNFPSUGOKrMXEWm3eATg"
+                    />
+                    <p class="text-gray-500 text-xs font-mono leading-tight">
+                        &gt; 1650: Basso Continuo<br />
+                        &gt; 2020: 808 Glide
+                    </p>
+                </div>
+            </aside>
+        </article>
+
+        <!-- Keep the Pulse Footer -->
+        <section
+            class="bg-primary text-surface py-20 px-6 relative overflow-hidden"
+        >
+            <!-- Background Texture -->
+            <div
+                class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"
+            >
+            </div>
+
+            <div
+                class="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center"
+            >
+                <h2 class="text-4xl md:text-6xl font-display font-bold mb-8">
+                    KEEP THE PULSE
+                </h2>
+                <div class="flex gap-4">
+                    <button
+                        class="bg-background-dark text-white px-8 py-4 text-sm font-bold tracking-[0.15em] hover:bg-white hover:text-primary transition-colors uppercase border border-transparent hover:border-background-dark"
+                    >
+                        View Archive
+                    </button>
+                    <button
+                        class="border border-white text-white px-8 py-4 text-sm font-bold tracking-[0.15em] hover:bg-white hover:text-primary transition-colors uppercase"
+                    >
+                        Next Story
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Simple script to handle navigation bar appearance on scroll
+        window.addEventListener("scroll", () => {
+            const nav = document.querySelector("nav");
+            if (window.scrollY > 100) {
+                nav.classList.add(
+                    "bg-background-dark/80",
+                    "backdrop-blur-md",
+                    "border-b",
+                    "border-gray-800"
+                );
+            } else {
+                nav.classList.remove(
+                    "bg-background-dark/80",
+                    "backdrop-blur-md",
+                    "border-b",
+                    "border-gray-800"
+                );
+            }
+        });
+
+        // Make code work with astro view transitions if present in the future
+        document.addEventListener("astro:page-load", () => {
+            window.dispatchEvent(new Event("scroll"));
+        });
+    </script>
+</BaseLayout>

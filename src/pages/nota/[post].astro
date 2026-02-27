@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import DeepDiveLayout from "../../layouts/DeepDiveLayout.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -11,13 +11,9 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-console.log(post);
 const { Content } = await post.render();
 ---
 
-<BaseLayout title={post.data.title}>
-    <article>
-        <h1>{post.data.title}</h1>
-        <Content />
-    </article>
-</BaseLayout>
+<DeepDiveLayout frontmatter={post.data}>
+    <Content />
+</DeepDiveLayout>
