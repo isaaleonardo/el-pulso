@@ -5,33 +5,6 @@ const { frontmatter } = Astro.props;
 ---
 
 <BaseLayout title={`${frontmatter.title} - El Pulso`}>
-    <!-- Sticky Progress Bar -->
-    <div class="fixed top-0 left-0 h-full w-1 bg-[#333] z-50">
-        <div
-            class="h-[35%] w-full bg-primary shadow-[0_0_10px_rgba(183,42,26,0.6)]"
-        >
-        </div>
-    </div>
-
-    <!-- Navigation Overlay (Hidden by default, implied interaction) -->
-    <nav
-        class="fixed top-0 w-full z-40 px-6 py-4 flex justify-between items-center mix-blend-difference text-white"
-    >
-        <div class="flex items-center gap-2">
-            <span class="material-symbols-outlined text-2xl">graphic_eq</span>
-            <span class="font-bold tracking-tighter text-xl">EL PULSO</span>
-        </div>
-        <button
-            class="group flex items-center gap-2 text-sm font-bold tracking-widest hover:text-primary transition-colors"
-        >
-            MENU
-            <span
-                class="material-symbols-outlined text-lg group-hover:rotate-90 transition-transform"
-                >menu</span
-            >
-        </button>
-    </nav>
-
     <main
         class="relative bg-background-light dark:bg-background-dark text-slate-900 dark:text-surface font-display antialiased overflow-x-hidden"
     >
@@ -259,31 +232,4 @@ const { frontmatter } = Astro.props;
             </div>
         </section>
     </main>
-
-    <script>
-        // Simple script to handle navigation bar appearance on scroll
-        window.addEventListener("scroll", () => {
-            const nav = document.querySelector("nav");
-            if (window.scrollY > 100) {
-                nav.classList.add(
-                    "bg-background-dark/80",
-                    "backdrop-blur-md",
-                    "border-b",
-                    "border-gray-800"
-                );
-            } else {
-                nav.classList.remove(
-                    "bg-background-dark/80",
-                    "backdrop-blur-md",
-                    "border-b",
-                    "border-gray-800"
-                );
-            }
-        });
-
-        // Make code work with astro view transitions if present in the future
-        document.addEventListener("astro:page-load", () => {
-            window.dispatchEvent(new Event("scroll"));
-        });
-    </script>
 </BaseLayout>

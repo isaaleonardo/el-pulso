@@ -1,0 +1,62 @@
+---
+---
+
+<header>
+    <nav
+        class="fixed top-0 w-full z-40 px-6 py-4 flex justify-between items-center mix-blend-difference text-white"
+    >
+        <div class="flex items-center gap-2">
+            <span class="font-bold tracking-tighter text-xl">EL PULSO</span>
+        </div>
+        <button
+            class="group flex items-center gap-2 text-sm font-bold tracking-widest hover:text-primary transition-colors cursor-pointer"
+        >
+            <span
+                class="material-symbols-outlined text-lg group-hover:rotate-90 transition-transform"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-menu-2"
+                    ><path stroke="none" d="M0 0h24v24H0z" fill="none"
+                    ></path><path d="M4 6l16 0"></path><path d="M4 12l16 0"
+                    ></path><path d="M4 18l16 0"></path>
+                </svg>
+            </span>
+        </button>
+    </nav>
+</header>
+
+<script>
+    // Simple script to handle navigation bar appearance on scroll
+    window.addEventListener("scroll", () => {
+        const nav = document.querySelector("nav");
+        if (window.scrollY > 100) {
+            nav.classList.add(
+                "bg-background-dark/80",
+                "backdrop-blur-md",
+                "border-b",
+                "border-gray-800"
+            );
+        } else {
+            nav.classList.remove(
+                "bg-background-dark/80",
+                "backdrop-blur-md",
+                "border-b",
+                "border-gray-800"
+            );
+        }
+    });
+
+    // Make code work with astro view transitions if present in the future
+    document.addEventListener("astro:page-load", () => {
+        window.dispatchEvent(new Event("scroll"));
+    });
+</script>
