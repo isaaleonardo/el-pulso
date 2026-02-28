@@ -1,0 +1,98 @@
+---
+const { frontmatter } = Astro.props;
+---
+
+<article
+    class="relative w-full max-w-[1440px] mx-auto pt-24 pb-32 grid grid-cols-1 lg:grid-cols-12 gap-8 px-6 lg:px-12"
+>
+    <!-- Left Marginalia (Desktop Only) -->
+    <aside class="hidden lg:block lg:col-span-2 relative h-full">
+        <div
+            class="sticky top-32 flex flex-col gap-12 text-xs font-bold text-gray-500 uppercase tracking-widest text-right border-r border-gray-800 pr-6"
+        >
+            <div>
+                <span class="block text-primary mb-1">Publicación</span>
+                {frontmatter.date}
+            </div>
+            <div>
+                <span class="block text-primary mb-1">Autor</span>
+                {frontmatter.author}
+            </div>
+            <div>
+                <span class="block text-primary mb-1">Categoría</span>
+                {frontmatter.category}
+            </div>
+            {
+                frontmatter.location && (
+                    <div>
+                        <span class="block text-primary mb-1">Ciudad</span>
+                        {frontmatter.location}
+                    </div>
+                )
+            }
+
+            <!-- Decorative Line -->
+            <div
+                class="h-32 w-[1px] bg-gradient-to-b from-primary to-transparent self-end"
+            >
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Column -->
+    <div class="col-span-1 lg:col-span-8 relative">
+        <!-- Lead Paragraph -->
+        {
+            frontmatter.description && (
+                <p class="text-2xl md:text-3xl font-light leading-snug text-surface mb-16 max-w-3xl mx-auto border-l-2 border-primary pl-6 py-2">
+                    {frontmatter.description}
+                </p>
+            )
+        }
+
+        <!-- Body Text -->
+        <div
+            class="prose prose-xl prose-invert max-w-2xl mx-auto font-body font-light text-gray-300 leading-relaxed"
+        >
+            <slot />
+        </div>
+
+        <!-- Footer / Author Block -->
+        <footer class="mt-24 border-t border-gray-800 pt-12 max-w-3xl mx-auto">
+            <div
+                class="bg-[#0a0a0a] border border-gray-800 p-8 md:p-10 flex flex-col md:flex-row gap-8 items-start md:items-center relative overflow-hidden group"
+            >
+                <!-- Hover Effect Background -->
+                <div
+                    class="absolute inset-0 bg-accent/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500"
+                >
+                </div>
+
+                {
+                    frontmatter.authorImage && (
+                        <img
+                            alt={`Portrait of ${frontmatter.author}`}
+                            class="w-24 h-24 object-cover grayscale contrast-125 border border-gray-700 relative z-10"
+                            src={frontmatter.authorImage}
+                        />
+                    )
+                }
+
+                <div class="flex-1 relative z-10">
+                    <h3
+                        class="text-xl font-bold font-display text-surface mb-2 uppercase"
+                    >
+                        {frontmatter.author}
+                    </h3>
+                    {
+                        frontmatter.authorRole && (
+                            <p class="text-gray-400 font-body font-light text-sm mb-4 leading-relaxed">
+                                {frontmatter.authorRole}
+                            </p>
+                        )
+                    }
+                </div>
+            </div>
+        </footer>
+    </div>
+</article>
