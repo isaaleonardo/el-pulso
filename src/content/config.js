@@ -8,13 +8,10 @@ const notas = defineCollection({
     authorRole: z.string().optional(),
     authorImage: z.string().optional(),
     date: z.string(),
-    readTime: z.string(),
     category: z.string(),
     heroImage: z.string(),
     heroImageAlt: z.string().optional(),
     location: z.string().optional(),
-    musicKey: z.string().optional(),
-    tags: z.array(z.string()).optional(),
   }),
 });
 
