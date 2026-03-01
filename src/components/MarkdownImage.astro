@@ -1,6 +1,7 @@
 ---
 const { src, alt, title } = Astro.props;
 
+const imageSrc = typeof src === "object" && src !== null ? src.src : src;
 const caption = title || alt || "Figure";
 ---
 
@@ -13,7 +14,7 @@ const caption = title || alt || "Figure";
         <img
             alt={alt}
             class="w-full h-[400px] object-cover group-hover:scale-105 transition-transform duration-700"
-            src={src}
+            src={imageSrc}
         />
         {
             caption && (

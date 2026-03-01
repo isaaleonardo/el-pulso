@@ -1,15 +1,15 @@
 import { defineCollection, z } from "astro:content";
 
 const notas = defineCollection({
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     description: z.string().optional(),
     author: z.string(),
     authorRole: z.string().optional(),
-    authorImage: z.string().optional(),
+    authorImage: z.union([image(), z.string()]).optional(),
     date: z.string(),
     category: z.string(),
-    heroImage: z.string(),
+    heroImage: z.union([image(), z.string()]),
     heroImageAlt: z.string().optional(),
     location: z.string().optional(),
   }),

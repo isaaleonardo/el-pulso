@@ -1,5 +1,9 @@
 ---
 const { frontmatter } = Astro.props;
+const heroImageSrc =
+    typeof frontmatter.heroImage === "object" && frontmatter.heroImage !== null
+        ? frontmatter.heroImage.src
+        : frontmatter.heroImage;
 ---
 
 <header
@@ -9,7 +13,7 @@ const { frontmatter } = Astro.props;
     <div class="absolute inset-0 z-0">
         <div
             class="w-full h-full bg-cover bg-center"
-            style={`background-image: url('${frontmatter.heroImage}');`}
+            style={`background-image: url('${heroImageSrc}');`}
         >
         </div>
     </div>
