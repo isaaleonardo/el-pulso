@@ -1,13 +1,17 @@
 ---
+import { Image } from "astro:assets";
+import logoImage from "@/assets/images/logos/ElPulso_Monogram_Red.png";
 ---
 
 <header>
     <nav
-        class="fixed top-0 w-full z-40 px-6 py-4 flex justify-between items-center mix-blend-difference text-white"
+        class="fixed top-0 w-full z-40 px-6 py-4 flex justify-between items-center text-white bg-background-dark border-b border-gray-800"
     >
-        <div class="flex items-center gap-2">
-            <span class="font-bold tracking-tighter text-xl">EL PULSO</span>
-        </div>
+        <a href="/">
+            <div class="flex items-center gap-2">
+                <Image src={logoImage} alt="El Pulso" width={50} height={50} />
+            </div>
+        </a>
         <button
             class="group flex items-center gap-2 text-sm font-bold tracking-widest hover:text-primary transition-colors cursor-pointer"
         >
@@ -33,30 +37,3 @@
         </button>
     </nav>
 </header>
-
-<script>
-    // Simple script to handle navigation bar appearance on scroll
-    window.addEventListener("scroll", () => {
-        const nav = document.querySelector("nav");
-        if (window.scrollY > 100) {
-            nav.classList.add(
-                "bg-background-dark/80",
-                "backdrop-blur-md",
-                "border-b",
-                "border-gray-800"
-            );
-        } else {
-            nav.classList.remove(
-                "bg-background-dark/80",
-                "backdrop-blur-md",
-                "border-b",
-                "border-gray-800"
-            );
-        }
-    });
-
-    // Make code work with astro view transitions if present in the future
-    document.addEventListener("astro:page-load", () => {
-        window.dispatchEvent(new Event("scroll"));
-    });
-</script>
