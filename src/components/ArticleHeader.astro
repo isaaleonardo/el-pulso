@@ -20,18 +20,22 @@ const heroImageSrc =
 
     <!-- Hero Content -->
     <div class="relative z-30 text-center px-4 max-w-7xl mx-auto mt-20">
-        <div
-            class="mb-6 flex justify-center items-center gap-4 text-xs font-bold tracking-[0.2em] text-surface/80 uppercase"
-        >
-            <span>{frontmatter.date}</span>
-            <span class="w-1 h-1 bg-primary rounded-full"></span>
-            <span>Por {frontmatter.author}</span>
-        </div>
         <h1
             class="text-[clamp(2rem,12vw,6rem)] leading-[0.85] font-bold text-surface break-words tracking-tighter text-shadow-(--color-primary)"
             set:html={frontmatter.title}
         >
         </h1>
+        <div
+            class="mt-6 flex justify-center items-center gap-4 text-xs font-bold tracking-[0.2em] text-surface/80 uppercase"
+        >
+            <div
+                class="inline-block backdrop-blur-md bg-black/40 md:p-4 p-2 md:text-sm text-xs border border-white/10"
+            >
+                <span>{frontmatter.date}</span>
+                <span class="w-1 h-1 text-primary rounded-full">●</span>
+                <span>Por {frontmatter.author}</span>
+            </div>
+        </div>
     </div>
 
     <!-- Scroll Indicator -->

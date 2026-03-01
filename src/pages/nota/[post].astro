@@ -2,6 +2,7 @@
 import DeepDiveLayout from "../../layouts/DeepDiveLayout.astro";
 import Blockquote from "../../components/Blockquote.astro";
 import MarkdownImage from "../../components/MarkdownImage.astro";
+import DoubleImage from "../../components/DoubleImage.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -17,7 +18,7 @@ const { Content } = await post.render();
 ---
 
 <DeepDiveLayout frontmatter={post.data}>
-    <Content components={{ blockquote: Blockquote, img: MarkdownImage }} />
+    <Content components={{ blockquote: Blockquote, img: MarkdownImage, DoubleImage }} />
 </DeepDiveLayout>
 
 <style is:global>

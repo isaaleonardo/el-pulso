@@ -1,0 +1,72 @@
+---
+const { src1, alt1, src2, alt2 } = Astro.props;
+
+// Load all images eagerly using Vite's glob import
+const images = import.meta.glob<{ default: any }>('/src/assets/**/*.{jpeg,jpg,png,gif,webp,heic}', { eager: true });
+
+const resolveImage = (srcPath: any) => {
+    // If it's already an imported object handled by MDX
+    if (typeof srcPath === "object" && srcPath !== null) return srcPath.src;
+    
+    // If it's a relative string path
+    if (typeof srcPath === "string") {
+        // Leave external URLs or absolute public paths alone
+        if (srcPath.startsWith("http") || srcPath.startsWith("/")) return srcPath;
+        
+        // Normalize MDX relative path (../../assets/...) to an absolute src directory path
+        let globPath = srcPath;
+        if (globPath.includes("/assets/")) {
+            globPath = "/src/assets/" + globPath.split("/assets/")[1];
+        }
+        
+        // Fetch it from the pre-loaded imports
+        const file = images[globPath];
+        if (file) return file.default.src;
+    }
+    return srcPath;
+};
+
+const imageSrc1 = resolveImage(src1);
+const caption1 = alt1;
+
+const imageSrc2 = resolveImage(src2);
+const caption2 = alt2;
+---
+
+<div class="my-24 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 max-w-5xl mx-auto not-prose items-start">
+    <!-- First Image (Left) -->
+    <figure class="relative group overflow-hidden">
+        <div class="absolute inset-0 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
+        <img
+            alt={caption1}
+            title={caption1}
+            class="w-full h-[400px] object-cover group-hover:scale-105 transition-transform duration-700"
+            src={imageSrc1}
+        />
+        {
+            caption1 && (
+                <figcaption class="absolute bottom-4 left-4 z-20 bg-black/80 px-3 py-1 text-xs font-bold text-white uppercase tracking-widest">
+                    {caption1}
+                </figcaption>
+            )
+        }
+    </figure>
+
+    <!-- Second Image (Right, Offset downwards) -->
+    <figure class="relative group overflow-hidden md:mt-16">
+        <div class="absolute inset-0 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
+        <img
+            alt={caption2}
+            title={caption2}
+            class="w-full h-[400px] object-cover group-hover:scale-105 transition-transform duration-700"
+            src={imageSrc2}
+        />
+        {
+            caption2 && (
+                <figcaption class="absolute bottom-4 left-4 z-20 bg-black/80 px-3 py-1 text-xs font-bold text-white uppercase tracking-widest">
+                    {caption2}
+                </figcaption>
+            )
+        }
+    </figure>
+</div>

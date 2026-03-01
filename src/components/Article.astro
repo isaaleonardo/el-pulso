@@ -1,5 +1,9 @@
 ---
 const { frontmatter } = Astro.props;
+
+const authorImageSrc = typeof frontmatter.authorImage === "object" && frontmatter.authorImage !== null
+    ? frontmatter.authorImage.src
+    : frontmatter.authorImage;
 ---
 
 <article
@@ -69,11 +73,11 @@ const { frontmatter } = Astro.props;
                 </div>
 
                 {
-                    frontmatter.authorImage && (
+                    authorImageSrc && (
                         <img
                             alt={`Portrait of ${frontmatter.author}`}
                             class="w-24 h-24 object-cover grayscale contrast-125 border border-gray-700 relative z-10"
-                            src={frontmatter.authorImage}
+                            src={authorImageSrc}
                         />
                     )
                 }
