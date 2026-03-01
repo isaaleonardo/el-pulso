@@ -9,6 +9,7 @@ interface Props {
   titleClass?: string;
   date?: string;
   gradientClass?: string;
+  link?: string;
 }
 
 const {
@@ -21,36 +22,40 @@ const {
   titleClass = "text-2xl",
   date,
   gradientClass = "bg-gradient-to-t from-black via-black/20 to-transparent opacity-80",
+  link,
 } = Astro.props;
 
 const themeStyles = {
   primary: "bg-primary text-white",
   accent: "bg-accent text-black",
 };
+const Element = link ? "a" : "div";
 ---
 
 <article class="masonry-item group relative w-full overflow-hidden border border-surface/10 bg-neutral-900 transition-all hover:border-accent rounded-sm">
-    <div class={`relative ${aspectRatio} w-full overflow-hidden transition-all duration-700`}>
-        <slot name="image">
-            {image && <img alt={alt} class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" src={image}/>}
-        </slot>
-        
-        <slot name="gradient">
-            <div class={`absolute inset-0 ${gradientClass}`}></div>
-        </slot>
-        
-        <slot>
-            <div class="absolute bottom-0 left-0 p-6 w-full">
-                <div class="flex flex-end items-start mb-auto">
-                    {category && <span class="px-2 py-1 text-xs mb-4 uppercase tracking-widest text-surface bg-primary">{category}</span>}
+    <Element href={link} class="block w-full h-full">
+        <div class={`relative ${aspectRatio} w-full overflow-hidden transition-all duration-700`}>
+            <slot name="image">
+                {image && <img alt={alt} class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" src={image}/>}
+            </slot>
+            
+            <slot name="gradient">
+                <div class={`absolute inset-0 ${gradientClass}`}></div>
+            </slot>
+            
+            <slot>
+                <div class="absolute bottom-0 left-0 p-6 w-full pointer-events-none">
+                    <div class="flex flex-end items-start mb-auto pointer-events-auto">
+                        {category && <span class="px-2 py-1 text-xs mb-4 uppercase tracking-widest text-surface bg-primary">{category}</span>}
+                    </div>
+                    {title && <h3 class={`${titleClass} font-bold leading-none text-surface ${date ? 'mb-2' : ''} pointer-events-auto`}>{title}</h3>}
+                    {date && (
+                        <p class="text-sm text-surface/70 line-clamp-2 font-body font-light pointer-events-auto">
+                            {date}
+                        </p>
+                    )}
                 </div>
-                {title && <h3 class={`${titleClass} font-bold leading-none text-surface ${date ? 'mb-2' : ''}`}>{title}</h3>}
-                {date && (
-                    <p class="text-sm text-surface/70 line-clamp-2 font-body font-light">
-                        {date}
-                    </p>
-                )}
-            </div>
-        </slot>
-    </div>
+            </slot>
+        </div>
+    </Element>
 </article>
