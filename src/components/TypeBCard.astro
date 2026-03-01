@@ -1,0 +1,93 @@
+---
+interface Props {
+  theme?: "primary" | "dark";
+  category?: string;
+  title?: string;
+  description?: string;
+  icon?: string;
+  date?: string;
+  buttonText?: string;
+  verticalLabel?: string;
+  showPulse?: boolean;
+}
+
+const {
+  theme = "dark",
+  category,
+  title,
+  description,
+  icon,
+  date,
+  buttonText,
+  verticalLabel,
+  showPulse = false,
+} = Astro.props;
+
+const isPrimary = theme === "primary";
+const minHeightClass = isPrimary ? "min-h-[400px]" : "min-h-[350px]";
+const paddingClass = isPrimary ? "p-8 md:p-12" : "p-8 md:p-10";
+
+const themeConfig = {
+  primary: {
+    bg: "bg-primary hover:shadow-[0_0_30px_rgba(129,183,250,0.15)]",
+    category: "text-surface/60",
+    title: "text-5xl md:text-6xl text-surface group-hover:scale-[1.02] transition-transform duration-500 origin-left",
+    description: "text-surface/90",
+  },
+  dark: {
+    bg: "bg-neutral-900 hover:shadow-[0_0_30px_rgba(255,255,255,0.05)]",
+    category: "text-muted-grey",
+    title: "text-5xl text-transparent bg-clip-text bg-gradient-to-br from-surface to-muted-grey",
+    description: "text-muted-grey",
+  },
+};
+
+const currentTheme = themeConfig[theme];
+---
+
+<article class={`masonry-item group relative w-full overflow-hidden border border-surface/10 transition-all hover:border-accent ${currentTheme.bg} rounded-sm`}>
+    <div class={`${paddingClass} flex flex-col ${isPrimary ? "justify-between" : ""} ${minHeightClass}`}>
+        {!isPrimary && (
+            <div class="flex flex-end items-start mb-auto">
+                {category && <span class="px-2 py-1 text-xs mb-4 uppercase tracking-widest text-surface">{category}</span>}
+            </div>
+        )}
+        
+        {isPrimary && category && (
+            <span class={`text-xs font-bold uppercase tracking-widest ${currentTheme.category} mb-4`}>{category}</span>
+        )}
+        
+        {title && (
+            <h2 class={`font-bold leading-[0.85] tracking-tighter ${currentTheme.title} ${!isPrimary ? 'mb-4' : ''}`}>
+                {title}
+            </h2>
+        )}
+        
+        {description && (
+            <p class={`font-body text-sm mb-6 ${currentTheme.description}`}>
+                {description}
+            </p>
+        )}
+        
+        <slot />
+        
+        {date && (
+            <div class="mt-8 flex items-center justify-between border-t border-surface/30 pt-4 text-surface">
+                <span class="text-sm font-medium">{date}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M15 16l4 -4" /><path d="M15 8l4 4" /></svg>
+            </div>
+        )}
+        
+        {buttonText && (
+            <button class="w-full py-3 border border-surface/20 text-xs font-bold uppercase tracking-widest hover:bg-surface hover:text-black transition-colors text-surface">
+                {buttonText}
+            </button>
+        )}
+    </div>
+    
+    {verticalLabel && (
+        <div class="absolute -left-3 top-12 -rotate-90 origin-left">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-surface/40">{verticalLabel}</span>
+        </div>
+    )}
+</article>

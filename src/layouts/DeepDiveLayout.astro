@@ -17,36 +17,5 @@ const { frontmatter } = Astro.props;
         <Article frontmatter={frontmatter}>
             <slot />
         </Article>
-
-        <!-- Footer -->
-        <section
-            class="bg-primary text-surface py-20 px-6 relative overflow-hidden"
-        >
-            <!-- Background Texture -->
-            <div
-                class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"
-            >
-            </div>
-
-            <div
-                class="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center"
-            >
-                <h2 class="text-4xl md:text-6xl font-display font-bold mb-8">
-                    KEEP THE PULSE
-                </h2>
-                <div class="flex gap-4">
-                    <button
-                        class="bg-background-dark text-white px-8 py-4 text-sm font-bold tracking-[0.15em] hover:bg-white hover:text-primary transition-colors uppercase border border-transparent hover:border-background-dark"
-                    >
-                        View Archive
-                    </button>
-                    <button
-                        class="border border-white text-white px-8 py-4 text-sm font-bold tracking-[0.15em] hover:bg-white hover:text-primary transition-colors uppercase"
-                    >
-                        Next Story
-                    </button>
-                </div>
-            </div>
-        </section>
     </main>
 </BaseLayout>
