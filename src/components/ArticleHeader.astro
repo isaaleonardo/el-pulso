@@ -31,7 +31,7 @@ const heroImageSrc =
             <div
                 class="inline-block backdrop-blur-md bg-black/40 md:p-4 p-2 md:text-sm text-xs border border-white/10"
             >
-                <span>{frontmatter.date}</span>
+                <span>{new Date(frontmatter.date).toLocaleDateString("es-ES", { year: "numeric", month: "long", day: "numeric" })}</span>
                 <span class="w-1 h-1 text-primary rounded-full">●</span>
                 <span>Por {frontmatter.author}</span>
             </div>

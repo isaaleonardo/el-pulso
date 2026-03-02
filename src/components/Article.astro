@@ -16,7 +16,7 @@ const authorImageSrc = typeof frontmatter.authorImage === "object" && frontmatte
         >
             <div>
                 <span class="block text-primary mb-1">Publicación</span>
-                {frontmatter.date}
+                {new Date(frontmatter.date).toLocaleDateString("es-ES", { year: "numeric", month: "long", day: "numeric" })}
             </div>
             <div>
                 <span class="block text-primary mb-1">Autor</span>
