@@ -10,5 +10,9 @@
     "Ana Hidalgo": {
         "role": "Reportera",
         "image": "../assets/images/notas/default.png"
+    },
+    "Paola Mattias": {
+        "role": "Reportera",
+        "image": "../assets/images/notas/default.png"
     }
 }
