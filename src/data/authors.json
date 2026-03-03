@@ -6,5 +6,9 @@
     "Crystal Isabel Olivo": {
         "role": "Reportera",
         "image": "../assets/images/authors/crystal-isabel-olivo.jpg"
+    },
+    "Ana Hidalgo": {
+        "role": "Reportera",
+        "image": "../assets/images/notas/default.png"
     }
 }
