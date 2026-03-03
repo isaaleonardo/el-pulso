@@ -14,14 +14,16 @@ const heroImageSrc =
         heroImageSrc ? "h-screen min-h-[800px]" : "py-32"
     ]}
 >
-    <!-- Background Image with Duotone Effect -->
+    <!-- Background Image with Overlay -->
     {heroImageSrc && (
-        <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 z-0 bg-black">
             <div
-                class="w-full h-full bg-cover bg-center"
+                class="w-full h-full bg-cover bg-center opacity-60"
                 style={`background-image: url('${heroImageSrc}');`}
             >
             </div>
+            <!-- Dark gradient overlay for better text readability -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/60"></div>
         </div>
     )}
 
@@ -36,7 +38,7 @@ const heroImageSrc =
             class="mt-6 flex justify-center items-center gap-4 text-xs font-bold tracking-[0.2em] text-surface/80 uppercase"
         >
             <div
-                class="inline-block backdrop-blur-md bg-black/40 md:p-4 p-2 md:text-sm text-xs border border-white/10"
+                class="inline-block md:p-4 p-2 md:text-sm text-xs"
             >
                 <span>{new Date(frontmatter.date).toLocaleDateString("es-ES", { year: "numeric", month: "long", day: "numeric" })}</span>
                 <span class="w-1 h-1 text-primary rounded-full">●</span>
