@@ -1,0 +1,60 @@
+---
+import { getEntry } from "astro:content";
+import TypeACard from "./TypeACard.astro";
+import TypeBCard from "./TypeBCard.astro";
+import TypeCCard from "./TypeCCard.astro";
+import defaultImg from "@/assets/images/notas/default.png";
+
+interface Props {
+    link: string;
+}
+
+const { link } = Astro.props;
+
+// Extract slug from link format "/nota/slug-name"
+const slug = link.replace(/^\/nota\//, "");
+
+const nota = await getEntry("notas", slug);
+
+if (!nota) {
+    throw new Error(`Nota with link "${link}" not found`);
+}
+
+const imageSrc = nota.data.heroImage ? (typeof nota.data.heroImage === 'string' ? nota.data.heroImage : (nota.data.heroImage as any).src) : defaultImg.src;
+const formattedDate = new Date(nota.data.date).toLocaleDateString("es-ES", { year: "numeric", month: "long", day: "numeric" });
+---
+
+{nota.data.type === "Reseña" && (
+    <TypeACard 
+        image={imageSrc}
+        alt={nota.data.heroImageAlt || nota.data.title}
+        aspectRatio="aspect-[3/5]"
+        category={nota.data.category}
+        categoryTheme="accent"
+        title={nota.data.title}
+        titleClass="text-3xl"
+        date={formattedDate}
+        link={link}
+    />
+)}
+
+{nota.data.type === "Nota Informativa" && (
+    <TypeBCard 
+        theme="primary"
+        category={nota.data.category}
+        title={nota.data.title}
+        description={nota.data.description}
+        date={formattedDate}
+        verticalLabel="Rebellion"
+        link={link}
+    />
+)}
+
+{nota.data.type === "Nota Interpretativa" && (
+    <TypeCCard 
+        category={nota.data.category}
+        title={nota.data.title}
+        description={nota.data.description}
+        link={link}
+    />
+)}
