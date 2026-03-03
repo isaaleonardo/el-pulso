@@ -12,6 +12,7 @@ const notas = defineCollection({
     heroImage: z.union([image(), z.string()]),
     heroImageAlt: z.string().optional(),
     location: z.string().optional(),
+    type: z.enum(["Nota Informativa", "Reseña", "Nota Interpretativa"]),
   }),
 });
 
