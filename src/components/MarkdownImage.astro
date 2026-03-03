@@ -13,12 +13,12 @@ const caption = title || alt || "Figure";
         </div>
         <img
             alt={alt}
-            class="w-full h-[400px] object-cover group-hover:scale-105 transition-transform duration-700"
+            class="w-full h-[400px] object-cover transition-transform duration-700"
             src={imageSrc}
         />
         {
             caption && (
-                <figcaption class="absolute bottom-4 left-4 z-20 bg-black/80 px-3 py-1 text-xs font-bold text-white uppercase tracking-widest">
+                <figcaption class="py-1 text-xs font-bold text-white tracking-widest">
                     {caption}
                 </figcaption>
             )
