@@ -1,22 +1,29 @@
 ---
 const { frontmatter } = Astro.props;
 const heroImageSrc =
-    typeof frontmatter.heroImage === "object" && frontmatter.heroImage !== null
-        ? frontmatter.heroImage.src
-        : frontmatter.heroImage;
+    frontmatter.heroImage
+        ? (typeof frontmatter.heroImage === "object" && frontmatter.heroImage !== null
+            ? frontmatter.heroImage.src
+            : frontmatter.heroImage)
+        : null;
 ---
 
 <header
-    class="relative w-full h-screen min-h-[800px] flex flex-col justify-center items-center overflow-hidden"
+    class:list={[
+        "relative w-full flex flex-col justify-center items-center overflow-hidden",
+        heroImageSrc ? "h-screen min-h-[800px]" : "py-32"
+    ]}
 >
     <!-- Background Image with Duotone Effect -->
-    <div class="absolute inset-0 z-0">
-        <div
-            class="w-full h-full bg-cover bg-center"
-            style={`background-image: url('${heroImageSrc}');`}
-        >
+    {heroImageSrc && (
+        <div class="absolute inset-0 z-0">
+            <div
+                class="w-full h-full bg-cover bg-center"
+                style={`background-image: url('${heroImageSrc}');`}
+            >
+            </div>
         </div>
-    </div>
+    )}
 
     <!-- Hero Content -->
     <div class="relative z-30 text-center px-4 max-w-7xl mx-auto mt-20">
@@ -39,25 +46,27 @@ const heroImageSrc =
     </div>
 
     <!-- Scroll Indicator -->
-    <div
-        class="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 animate-bounce"
-    >
-        <span class="material-symbols-outlined text-4xl text-surface">
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-down"
-                ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
-                    d="M12 5l0 14"></path><path d="M18 13l-6 6"></path><path
-                    d="M6 13l6 6"></path>
-            </svg>
-        </span>
-    </div>
+    {heroImageSrc && (
+        <div
+            class="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 animate-bounce"
+        >
+            <span class="material-symbols-outlined text-4xl text-surface">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-down"
+                    ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+                        d="M12 5l0 14"></path><path d="M18 13l-6 6"></path><path
+                        d="M6 13l6 6"></path>
+                </svg>
+            </span>
+        </div>
+    )}
 </header>

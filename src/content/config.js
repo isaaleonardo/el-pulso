@@ -10,7 +10,7 @@ const notas = defineCollection({
     author: z.enum(authorNames),
     date: z.string(),
     category: z.string(),
-    heroImage: z.union([image(), z.string()]),
+    heroImage: z.union([image(), z.string()]).optional(),
     heroImageAlt: z.string().optional(),
     location: z.string().optional(),
     type: z.enum(["Nota Informativa", "Reseña", "Nota Interpretativa"]),

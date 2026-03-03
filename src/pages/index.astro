@@ -4,6 +4,7 @@ import TypeACard from "@/components/TypeACard.astro";
 import TypeBCard from "@/components/TypeBCard.astro";
 import TypeCCard from "@/components/TypeCCard.astro";
 import mayaVonImg from "@/assets/images/notas/maya-von-presentacion-en-la-trinidad/1.jpg";
+import defaultImg from "@/assets/images/notas/default.png";
 import { getCollection } from "astro:content";
 
 const allNotas = await getCollection("notas");
@@ -52,15 +53,13 @@ const sortedNotas = allNotas.sort((a, b) => new Date(b.data.date).valueOf() - ne
             <div class="flex flex-col divide-y divide-black/20 pb-16">
                 {sortedNotas.map(nota => (
                     <article class="py-8 group flex flex-col md:flex-row gap-8 items-start">
-                        {nota.data.heroImage && (
-                            <a href={`/nota/${nota.slug}`} class="w-full md:w-1/3 shrink-0 overflow-hidden block aspect-[16/9] bg-black/5">
-                                <img 
-                                    src={typeof nota.data.heroImage === 'string' ? nota.data.heroImage : nota.data.heroImage.src} 
-                                    alt={nota.data.heroImageAlt || nota.data.title} 
-                                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                                />
-                            </a>
-                        )}
+                        <a href={`/nota/${nota.slug}`} class="w-full md:w-1/3 shrink-0 overflow-hidden block aspect-[16/9] border border-black/10">
+                            <img 
+                                src={nota.data.heroImage ? (typeof nota.data.heroImage === 'string' ? nota.data.heroImage : nota.data.heroImage.src) : defaultImg.src} 
+                                alt={nota.data.heroImageAlt || nota.data.title} 
+                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                            />
+                        </a>
                         <div class="flex flex-col flex-grow text-white">
                             <div class="flex items-center gap-3 mb-3">
                                 <span class="px-2 py-1 text-xs uppercase tracking-widest text-surface bg-primary">{nota.data.category}</span>
