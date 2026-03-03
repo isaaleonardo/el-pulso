@@ -133,32 +133,34 @@
             openNavigationMenu: () => void;
         }
     }
-    const navOverlay = document.getElementById('navigation-overlay');
-    const closeBtn = document.getElementById('close-nav-btn');
-    
-    // Global function attached to window for header button to call
-    window.openNavigationMenu = () => {
-        if (navOverlay) {
-            navOverlay.classList.remove('hidden');
-            // Small delay to allow display block to apply before transitioning opacity
-            setTimeout(() => {
-                navOverlay.classList.remove('opacity-0');
-                navOverlay.classList.add('opacity-100');
-            }, 10);
-            document.body.style.overflow = 'hidden';
+    document.addEventListener('astro:page-load', () => {
+        const navOverlay = document.getElementById('navigation-overlay');
+        const closeBtn = document.getElementById('close-nav-btn');
+        
+        // Global function attached to window for header button to call
+        window.openNavigationMenu = () => {
+            if (navOverlay) {
+                navOverlay.classList.remove('hidden');
+                // Small delay to allow display block to apply before transitioning opacity
+                setTimeout(() => {
+                    navOverlay.classList.remove('opacity-0');
+                    navOverlay.classList.add('opacity-100');
+                }, 10);
+                document.body.style.overflow = 'hidden';
+            }
+        };
+        
+        if (closeBtn && navOverlay) {
+            closeBtn.addEventListener('click', () => {
+                navOverlay.classList.remove('opacity-100');
+                navOverlay.classList.add('opacity-0');
+                
+                // Wait for transition to finish
+                setTimeout(() => {
+                    navOverlay.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }, 300); // 300ms matches duration-300
+            });
         }
-    };
-    
-    if (closeBtn && navOverlay) {
-        closeBtn.addEventListener('click', () => {
-            navOverlay.classList.remove('opacity-100');
-            navOverlay.classList.add('opacity-0');
-            
-            // Wait for transition to finish
-            setTimeout(() => {
-                navOverlay.classList.add('hidden');
-                document.body.style.overflow = '';
-            }, 300); // 300ms matches duration-300
-        });
-    }
+    });
 </script>
